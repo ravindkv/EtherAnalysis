@@ -1,0 +1,30 @@
+Date: XXX
+Description: Excited lepton (lstar), mu+jets, mass YYY GeV, lumi=ZZZ fb-1
+----------------------------------------------------------------------------------
+imax   1  number of channels
+jmax   *  number of backgrounds
+kmax   *  number of nuisance parameters
+----------------------------------------------------------------------------------
+Observation    XXX
+----------------------------------------------------------------------------------
+bin                             llstar_llZ_llq_13TeV llstar_llZ_llq_13TeV  llstar_llZ_llq_13TeV  llstar_llZ_llq_13TeV    
+process                         lstarYYY    ttbar     zjet       vv 
+process                            0        1          3          4     
+--------------------------------------------------------------------
+rate                    
+--------------------------------------------------------------------
+lumi_13TeV               lnN    1.025      1.025       1.00     1.025     Luminosity Error
+CMS_eff_mu               lnN    1.030      1.030       1.00     1.030     Lepton Efficiency
+CMS_pileup               lnN    1.033      1.033       1.00     1.033     pileup reweighting
+CMS_Ztag                 lnN    1.08       1.08        1.00      1.08      Z-tagging uncertainty
+CMS_stat_lstar           lnN    XXXX       1.00        1.00      1.00      lstar MC stat
+CMS_stat_tt              lnN    1.00       XXXX        1.00      1.00      ttbar MC stat
+CMS_stat_zjet            lnN    1.00       1.00        XXXX      1.00      Zjet MC stat
+CMS_stat_vv              lnN    1.00       1.00        1.00      XXXX      diboson MC stat
+CMS_norm_tt              lnN    1.00       1.061       1.00      1.00      ttbar cross-section
+CMS_norm_zjet            lnN    1.00       1.00        1.00      1.00      Z->ll cross section
+CMS_norm_vv              lnN    1.00       1.00        1.00      1.04      VV cross section
+CMS_scale_j              lnN    LLLL       TTTT        1.00 	 VVVV      Jet energy scale      
+CMS_res_j                lnN    LLLL       TTTT        1.00      VVVV      Jet energy resolution 
+CMS_eff_b                lnN    LLLL       TTTT        1.00      VVVV      b-tag veto unc 
+CMS_eff_tt               lnN    1.00       1.041       1.00      1.00      pT extrapolation unc
