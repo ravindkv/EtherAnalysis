@@ -77,6 +77,21 @@ void Analyzer::CutFlowProcessor(TString url, TString cutflowType, TFile *outFile
   //---------------------------------------------------//
   //loop over each event, of the ntuple
   //---------------------------------------------------//
+  double id11Ele1 = 0.0;
+  double id23Ele1 = 0.0;
+  double idOtherEle1 = 0.0;
+  double id11Ele2 = 0.0;
+  double id23Ele2 = 0.0;
+  double idOtherEle2 = 0.0;
+
+  double idM24 = 0.0;
+  double idM15 = 0.0;
+  double idM13 = 0.0;
+  double id0   = 0.0;
+  double idP13 = 0.0;
+  double idP15 = 0.0;
+  double idP24 = 0.0;
+  double idOther = 0.0;
   for(int i=0; i<nEntries; ++i){
     Long64_t ientry = evR->LoadTree(i);
     if (ientry < 0) break;
@@ -203,7 +218,41 @@ void Analyzer::CutFlowProcessor(TString url, TString cutflowType, TFile *outFile
     int nLepton = 0;
     if(isMuChannel) nLepton = m_init.size();
     if(isEleChannel) nLepton = e_init.size();
-    if(nLepton < 2)continue;
+    //if(nLepton <2)continue;
+    if(nLepton !=1)continue;
+    double id1 = 999;
+    int lepton1 = 0;
+    if(isMuChannel){
+      lepton1 = m_init[0];
+      id1 = pfMuons[lepton1].gen_mother_id;
+    }
+    if(isEleChannel){
+      lepton1 = e_init[0];
+      id1 = pfElectrons[lepton1].gen_mother_id;
+    }
+    fillHisto(outFile_, cutflowType, "","genID", 200, -99.5, 100.5, pfMuons[lepton1].gen_id, evtWeight );
+    if(abs(pfMuons[lepton1].gen_id)==13){
+    if(id1==-24) idM24++;
+    else if(id1==-15)idM15++;
+    else if(id1==-13)idM13++;
+    else if(id1==0)id0++;
+    else if(id1==13)idP13++;
+    else if(id1==15)idP15++;
+    else if(id1==24)idP24++;
+    else idOther++;
+    }
+    //double id2 = pfElectrons[lepton2].gen_mother_id;
+    fillHisto(outFile_, cutflowType, "","motherID1", 200, -99.5, 100.5, id1, evtWeight );
+    //fillHisto(outFile_, cutflowType_, "ControlP","motherID2", 200, -100, 100, id2, evtWeight );
+    //fillHisto(outFile_, cutflowType_, "ControlP","motherID", 200, -100, 100,  id1, evtWeight );
+    //fillHisto(outFile_, cutflowType_, "ControlP","motherID", 200, -100, 100,  id2, evtWeight );
+    if(abs(id1) == 11) id11Ele1 ++;
+    else if(abs(id1) == 23) id23Ele1 ++;
+    else idOtherEle1 ++;
+    //if(abs(id2) == 11) id11Ele2 ++;
+    //else if(abs(id2) == 23) id23Ele2 ++;
+    //else idOtherEle2 ++;
+    /*
     double pri_vtxs = Vertices[0].totVtx;
     int charge1 = 0;
     int charge2 = 0;
@@ -235,7 +284,9 @@ void Analyzer::CutFlowProcessor(TString url, TString cutflowType, TFile *outFile
     }
     if(isVeto) continue;
     if(isMuChannel && pfMuons[lepton1].p4.pt() < 53) continue;
+    */
 
+    /*
     //---------------------------------------------------//
     //apply lepton SF to eventWeights 
     //---------------------------------------------------//
@@ -298,6 +349,18 @@ void Analyzer::CutFlowProcessor(TString url, TString cutflowType, TFile *outFile
     fillHisto(outFile_, cutflowType, "", "leptonSF", 1000, 0, 100, leptonSF, 1 );
     string cutflowType_(cutflowType);
     cutflowType_ = cutflowType;
+    double id1 = pfElectrons[lepton1].gen_mother_id;
+    double id2 = pfElectrons[lepton2].gen_mother_id;
+    fillHisto(outFile_, cutflowType_, "ControlP","motherID1", 200, -100, 100, id1, evtWeight );
+    fillHisto(outFile_, cutflowType_, "ControlP","motherID2", 200, -100, 100, id2, evtWeight );
+    fillHisto(outFile_, cutflowType_, "ControlP","motherID", 200, -100, 100,  id1, evtWeight );
+    fillHisto(outFile_, cutflowType_, "ControlP","motherID", 200, -100, 100,  id2, evtWeight );
+    if(abs(id1) == 11) id11Ele1 ++;
+    else if(abs(id1) == 23) id23Ele1 ++;
+    else idOtherEle1 ++;
+    if(abs(id2) == 11) id11Ele2 ++;
+    else if(abs(id2) == 23) id23Ele2 ++;
+    else idOtherEle2 ++;
     
     //---------------------------------------------------//
     //get 4 vector for Z boson
@@ -356,8 +419,23 @@ void Analyzer::CutFlowProcessor(TString url, TString cutflowType, TFile *outFile
     }
     nCutPass++;
     fillHisto(outFile_, cutflowType_, "", "cutflow", 20, 0.5, 20.5, nCutPass, evtWeight );
+    */
 
   }//event loop
+   cout<<"id11Ele1 = "<<id11Ele1<<endl;
+   cout<<"id23Ele1 = "<<id23Ele1<<endl;
+   cout<<"idOtherEle1 = "<<idOtherEle1<<endl;
+   cout<<"id11Ele2 = "<<id11Ele2<<endl;
+   cout<<"id23Ele2 = "<<id23Ele2<<endl;
+   cout<<"idOtherEle2 = "<<idOtherEle2<<endl;
+   cout<<"idM24= "<< idM24<<endl;
+   cout<<"idM15= "<< idM15<<endl;
+   cout<<"idM13= "<< idM13<<endl;
+   cout<<"id0  = "<< id0  <<endl;
+   cout<<"idP13= "<< idP13<<endl;
+   cout<<"idP15= "<< idP15<<endl;
+   cout<<"idP24= "<< idP24<<endl;
+   cout<<"idOther= "<< idOther<<endl;
   cout<<"Total events  = "<<nEntries<<endl;
   f->Close(); 
   delete f;
@@ -370,14 +448,17 @@ void Analyzer::processEvents(){
   outFile_->SetCompressionLevel(9);
   
   //Local 
-  //TString pathLocal = "outFile_.root";
-  //CutFlowAnalysis(pathLocal, true, false, ""); 
-  //CutFlowAnalysis(pathLocal, false, true, ""); 
+  //TString pathLocal = "DYJetsToLL_M50_MC_20190925_Ntuple_102.root";
+  //CutFlowAnalysis(pathLocal, true, false, outFile_); 
+  //CutFlowAnalysis(pathLocal, false, true, outFile_); 
   
   //T2
-  TString pathT2 = "/cms/store/user/rverma/ntuple_for2016MC_20190922/MC_20190922/DYJetsToLL_M50_MC_20190922/DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8/DYJetsToLL_M50_MC_20190922/190922_144942/0000/DYJetsToLL_M50_MC_20190922_Ntuple_1.root";
+  TString pathT2 = "/cms/store/user/rverma/ntuple_for2016MC_20190925/MC_20190925/WJetsToLNu_MC_20190925/WJetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8/WJetsToLNu_MC_20190925/190925_185518/0000/WJetsToLNu_MC_20190925_Ntuple_9.root";
+
   CutFlowAnalysis("root://se01.indiacms.res.in:1094/"+pathT2, true, false, outFile_);
   //CutFlowAnalysis("root://se01.indiacms.res.in:1094/"+pathT2, false, true, outFile_);
+  /*
+  */
   //================
   //condor submission
   //================

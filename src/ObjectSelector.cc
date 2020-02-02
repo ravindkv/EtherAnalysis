@@ -109,13 +109,10 @@ void ObjectSelector::preSelectMuons(vector<int> * m_i, const vector<MyMuon> & vM
     double mPt = TMath::Abs(m->p4.pt());
     bool passID = isHighPtMuon(m);
     double iso = m->trkRelIso;
-    m_i->push_back(i);
-    /*
     if(passID && mPt > 35 && mEta < 2.4 && 
 		    abs(m->D0) < 0.2 && abs(m->Dz) < 0.5 && iso < 0.10){ 
       m_i->push_back(i);
     }
-    */
   }
 }
 
