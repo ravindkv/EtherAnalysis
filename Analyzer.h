@@ -20,7 +20,6 @@
 #include "interface/LumiReweighting.h"
 #include "interface/UncertaintyComputer.hh"
 #include "interface/HistogramPlotter.hh"
-#include "interface/BTagCalibrationStandalone.h"
 
 
 //---------------------------------------------------//
@@ -156,7 +155,6 @@ private :
   std::map<string, double> muSF;
   std::map<string, double> eleSF;
   
-  BTagCalibrationReader readCSV(const std::string &filename,const std::string &tagger, BTagEntry::OperatingPoint op, const std::string & measurementType, const std::string & sysType, const std::vector<std::string> & otherSysTypes, BTagEntry::JetFlavor jf);
   ofstream outfile_;
   Double_t getMuonSF(TH2D *h2, double eta, double pt);
   Double_t getMuonTrigSF(TH2D *h2, double eta, double pt);
@@ -169,19 +167,6 @@ private :
   double phi0to2pi(double phi);
 };
 
-BTagCalibrationReader Analyzer::readCSV(const std::string &filename, const std::string &tagger,  
-		BTagEntry::OperatingPoint op, 
-		const std::string & measurementType,
-		const std::string & sysType, 
-		const std::vector<std::string> & otherSysTypes, 
-		BTagEntry::JetFlavor jf
-		)
-{ 
-  BTagCalibration calib(tagger, filename);
-  BTagCalibrationReader reader(op, sysType, otherSysTypes);      
-  reader.load(calib, jf, measurementType); 
-  return reader;
-}
 //https://twiki.cern.ch/twiki/bin/view/CMS/MuonWorkInProgressAndPagResults
 Double_t Analyzer::getMuonSF(TH2D *h2, double eta, double pt){
   

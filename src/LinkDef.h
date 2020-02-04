@@ -26,7 +26,6 @@
 #pragma link C++ class Reader+;
 #pragma link C++ class ObjectSelector+;
 #pragma link C++ class HistogramPlotter+;
-#pragma link C++ class BTagSF+;
 #pragma link C++ class UncertaintyComputer+;
 #endif
 

@@ -70,25 +70,6 @@ double UncertaintyComputer::jetPtWithJESJER(MyJet jet, int jes, int jer){
   return jet_pt;
 }
 
-//bottom mistagging, by event re-weighting 
-double UncertaintyComputer::getBTagPmcSys(TH2D *h2_qTagEff_Num, TH2D *h2_qTagEff_Denom, MyJet jet){
-  double csv =jet.bDiscriminator["pfCombinedInclusiveSecondaryVertexV2BJetTags"];
-  double pMC = 1.0; 
-  pMC = btsf->getBTagPmc(h2_qTagEff_Num, h2_qTagEff_Denom, jet.p4.eta(), jet.p4.pt(), csv);
-  return pMC;
-}
-double UncertaintyComputer::getBTagPdataSys(BTagCalibrationReader &reader, TH2D *h2_qTagEff_Num, TH2D *h2_qTagEff_Denom, MyJet jet, int scale){
-  double pData = 1.0;
-  double csv =jet.bDiscriminator["pfCombinedInclusiveSecondaryVertexV2BJetTags"];
-  double eta = jet.p4.eta();
-  double pt = jet.p4.pt();
-  int flavor = abs(jet.partonFlavour);
-  if(scale == 0) pData = btsf->getBTagPdata(reader, h2_qTagEff_Num, h2_qTagEff_Denom, eta, pt, csv, flavor ,0);
-  else if(scale == 1) pData = btsf->getBTagPdata(reader, h2_qTagEff_Num, h2_qTagEff_Denom, eta, pt, csv, flavor ,1);
-  else if(scale == -1) pData = btsf->getBTagPdata(reader, h2_qTagEff_Num, h2_qTagEff_Denom, eta, pt, csv, flavor ,-1);
-  return pData;
-}
-
 double UncertaintyComputer::DeltaR(MyLorentzVector aV, MyLorentzVector bV){
   double deta = TMath::Abs(aV.eta() - bV.eta());
   double dphi = TMath::Abs(aV.phi() - bV.phi());
