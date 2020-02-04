@@ -1,7 +1,7 @@
 # Ether Analysis
   
 ### Use it in Non-CMSSSW area. Only ROOT6 is needed.
-* https://github.com/ravindkv/EtherAnalysis.git
+* git clone https://github.com/ravindkv/EtherAnalysis.git
 * cd EtherAnalysis/src
 Change complier to c++11 in line 11 of the Makefile
 * make clean 
@@ -17,7 +17,7 @@ Change complier to c++11 in line 11 of the Makefile
 * cmsrel CMSSW_10_4_0
 * cd CMSSW_10_4_0/src
 * cmsenv
-* https://github.com/ravindkv/EtherAnalysis.git
+* git clone https://github.com/ravindkv/EtherAnalysis.git
 * cd EtherAnalysis/src
 * make clean 
 * make
