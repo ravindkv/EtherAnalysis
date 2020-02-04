@@ -3,7 +3,9 @@
 ### Use it in Non-CMSSSW area. Only ROOT6 is needed.
 * git clone https://github.com/ravindkv/EtherAnalysis.git
 * cd EtherAnalysis/src
+
 Change complier to c++11 in line 11 of the Makefile
+
 * make clean 
 * make
 * cd .. 
